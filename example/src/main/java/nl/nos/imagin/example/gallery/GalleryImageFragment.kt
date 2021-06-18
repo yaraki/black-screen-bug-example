@@ -1,30 +1,17 @@
 package nl.nos.imagin.example.gallery
 
-import android.content.Context
-import android.graphics.Rect
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.gallery_item.*
-import nl.nos.imagin.Imagin
-import nl.nos.imagin.SingleTapHandler
 import nl.nos.imagin.example.AssetLoader
 import nl.nos.imagin.example.R
 import nl.nos.imagin.example.data.Picture
 
-class GalleryImageFragment : Fragment(), SingleTapHandler.OnSingleTapListener {
-    private var tapListener: SingleTapHandler.OnSingleTapListener? = null
+class GalleryImageFragment : Fragment() {
     private val assetLoader = AssetLoader()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        if (context is SingleTapHandler.OnSingleTapListener) {
-            tapListener = context
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,38 +40,9 @@ class GalleryImageFragment : Fragment(), SingleTapHandler.OnSingleTapListener {
 
     private fun enableImageZoomControls(picture: Picture) {
         view?.let {
-            Imagin.with(it, image_view)
-                .enableDoubleTapToZoom()
-                .enablePinchToZoom()
-                .enableSingleTap(object : SingleTapHandler.OnSingleTapListener {
-                    override fun onSingleTap(event: MotionEvent) {
-                        Toast.makeText(image_view.context, picture.name, Toast.LENGTH_SHORT).show()
-                    }
-                })
-                .enableScroll(
-                    allowScrollOutOfBoundsHorizontally = false,
-                    allowScrollOutOfBoundsVertically = true,
-                    scrollDistanceToCloseInPx = getScreenHeight(image_view.context) / 5
-                ) {
-                    activity?.finishAfterTransition()
-                }
-
             image_view.transitionName = picture.name
             image_view.tag = picture.name
         }
-    }
-
-    private fun getScreenHeight(context: Context): Int {
-        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = windowManager.defaultDisplay
-        val displayMetrics = DisplayMetrics()
-
-        display.getMetrics(displayMetrics)
-        return Rect(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels).height()
-    }
-
-    override fun onSingleTap(event: MotionEvent) {
-        tapListener?.onSingleTap(event)
     }
 
     companion object {

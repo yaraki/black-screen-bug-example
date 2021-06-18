@@ -27,26 +27,6 @@ class GalleryActivity : AppCompatActivity() {
         supportPostponeEnterTransition()
 
         setupViewPager()
-
-        // Map the shared element transition for when the page has changed.
-        setEnterSharedElementCallback(object : SharedElementCallback() {
-            override fun onMapSharedElements(
-                names: MutableList<String>,
-                sharedElements: MutableMap<String, View>
-            ) {
-                if (names.isEmpty()) return
-
-                val selectedPictureName = repository.getPictures()[view_pager.currentItem].name
-
-                val imageView = view_pager.findViewWithTag<ImageView>(
-                    selectedPictureName
-                ) ?: return
-
-                names[0] = imageView.transitionName
-                sharedElements.clear()
-                sharedElements[imageView.transitionName] = imageView
-            }
-        })
     }
 
     private fun setupViewPager() {

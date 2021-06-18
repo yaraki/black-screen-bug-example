@@ -1,12 +1,12 @@
 package nl.nos.imagin.example.overview
 
 import android.os.Bundle
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.app.SharedElementCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_overview.*
+import nl.nos.imagin.example.R
 import nl.nos.imagin.example.data.Picture
 import nl.nos.imagin.example.data.Repository
 import nl.nos.imagin.example.gallery.GalleryActivity
@@ -21,25 +21,12 @@ class OverviewActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(nl.nos.imagin.example.R.layout.activity_overview)
+        setContentView(R.layout.activity_overview)
 
         adapter.pictures.addAll(repository.getPictures())
 
         recycler_view.layoutManager = GridLayoutManager(this, 2)
         recycler_view.adapter = adapter
-
-        // Map the shared element transition for when the page has changed.
-        setExitSharedElementCallback(object : SharedElementCallback() {
-            override fun onMapSharedElements(
-                names: MutableList<String>,
-                sharedElements: MutableMap<String, View>
-            ) {
-                if (names.isEmpty()) return
-
-                val selectedView = recycler_view.findViewWithTag<View>(names[0]) ?: return
-                sharedElements[names[0]] = selectedView
-            }
-        })
     }
 
     override fun onPictureClicked(view: View, picture: Picture, position: Int) {
