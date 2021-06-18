@@ -1,54 +1,11 @@
-# Imagin
+# Black screen bug example
 
-Imagin is an Android library, written in Kotlin. It attaches to an ImageView and allows you to add 'pinch to zoom', 'swipe to close', 'double tap to zoom' and dragging functionality. Because it attaches to a regular ImageView, it allows you to use all existing functionality of the ImageView or extend the ImageView to add extra functionality. Keep in mind that Imagin sets an OnTouchListener on the ImageView.
+This repository shows how you can get a black screen when using a shared element transition.
 
-This library is currently supported on Android 5.1 Lollipop (22) and higher. 
+This is how you can reproduce this bug on Android 11:
 
-![](https://github.com/nos-digital/imagin/raw/master/preview.gif)
+1. Start the detail activity.
+2. Rotate the screen.
+3. Go back to the original Activity by using the back gesture (or button).
 
-## Usage
-
-1. Add the Imagin library to your `build.gradle` file:
-
-```gradle
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-dependencies {
-    implementation 'com.github.nos-digital:imagin:${imagin.version}'
-}
-```
-
-2. Usage in your project:
-
-    Load an image into an ImageView like usual.
-
-```kotlin
-Imagin.with(imageWrapper, imageView)
-    // enable double tap to zoom functionality
-    .enableDoubleTapToZoom()
-    // enable pinch to zoom functionality
-    .enablePinchToZoom()
-    // add an event listener when the user does a single tap
-    .enableSingleTap(object : SingleTapHandler.OnSingleTapListener {
-        override fun onSingleTap() {
-            Toast.makeText(imageView.context, picture.name, Toast.LENGTH_SHORT).show()
-        }
-    })
-    // this allows us to do an action when the user swipes the ImageView vertically and/or horizontally
-    .enableScroll(
-        allowScrollOutOfBoundsHorizontally = false,
-        allowScrollOutOfBoundsVertically = true,
-        scrollDistanceToCloseInPx = distanceToClose
-    ) {
-        onSwipedToCloseListener?.onSwipeToClose()
-    }
-```
-
-## Licence
-
-Imagin is available under the MIT license.
+![](https://github.com/mennovogel/black-screen-bug-example/raw/master/preview.gif)
