@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.gallery_item.*
-import nl.nos.imagin.example.AssetLoader
 import nl.nos.imagin.example.R
+import nl.nos.imagin.example.AssetLoader
 import nl.nos.imagin.example.data.Picture
 
 class GalleryImageFragment : Fragment() {
@@ -24,24 +24,24 @@ class GalleryImageFragment : Fragment() {
 
         val data = arguments?.getParcelable(IMAGE_DATA) as? Picture ?: return
 
-        loadImage(data)
+        loadImage(data, view.findViewById(R.id.image_view))
     }
 
-    private fun loadImage(picture: Picture) {
-        image_view.setImageDrawable(
+    private fun loadImage(picture: Picture, imageView: ImageView) {
+        imageView.setImageDrawable(
             assetLoader.createDrawableFromAsset(
-                image_view.resources,
+                imageView.resources,
                 picture.fileName
             )
         )
 
-        enableImageZoomControls(picture)
+        enableImageZoomControls(picture, imageView)
     }
 
-    private fun enableImageZoomControls(picture: Picture) {
+    private fun enableImageZoomControls(picture: Picture, imageView: ImageView) {
         view?.let {
-            image_view.transitionName = picture.name
-            image_view.tag = picture.name
+            imageView.transitionName = picture.name
+            imageView.tag = picture.name
         }
     }
 

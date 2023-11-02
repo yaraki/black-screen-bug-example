@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_overview.*
+import androidx.recyclerview.widget.RecyclerView
 import nl.nos.imagin.example.R
 import nl.nos.imagin.example.data.Picture
 import nl.nos.imagin.example.data.Repository
@@ -25,8 +25,9 @@ class OverviewActivity : AppCompatActivity(),
 
         adapter.pictures.addAll(repository.getPictures())
 
-        recycler_view.layoutManager = GridLayoutManager(this, 2)
-        recycler_view.adapter = adapter
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = adapter
     }
 
     override fun onPictureClicked(view: View, picture: Picture, position: Int) {

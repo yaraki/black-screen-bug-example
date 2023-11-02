@@ -3,16 +3,12 @@ package nl.nos.imagin.example.gallery
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.app.SharedElementCallback
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.activity_gallery.*
-import nl.nos.imagin.example.data.Repository
 import nl.nos.imagin.example.R
+import nl.nos.imagin.example.data.Repository
 
 class GalleryActivity : AppCompatActivity() {
     private val repository = Repository()
@@ -36,7 +32,7 @@ class GalleryActivity : AppCompatActivity() {
             fragments.add(GalleryImageFragment.newInstance(it))
         }
 
-        view_pager?.apply {
+        (findViewById(R.id.view_pager) as? ViewPager2)?.apply {
             adapter = FragmentPagerAdapter(
                 this@GalleryActivity,
                 fragments

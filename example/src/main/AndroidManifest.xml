@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.nos.imagin.example">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -10,15 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".overview.OverviewActivity">
+        <activity
+            android:name="nl.nos.imagin.example.overview.OverviewActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".gallery.GalleryActivity" />
+        <activity android:name="nl.nos.imagin.example.gallery.GalleryActivity" />
 
     </application>
 
